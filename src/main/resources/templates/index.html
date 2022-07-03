@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Tecnologia | notificações</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" th:href="@{https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css}">
+    </head>
+    <body>
+        <main>
+            <br><br>
+            <div class="jumbotron container">
+                <h1 class="display-4">Sistema de notificações</h1>
+                <p class="lead">Salve uma tecnologia e a notificação será exibida.</p>
+                <hr class="my-4">
+                <br><br>
+                <form method="POST">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" th:name="nome" placeholder="Tecnologia..." required>
+                        <div class="input-group-append">
+                            <button class="btn btn-success" type="submit">Salvar</button>
+                        </div>
+                </form>
+            </div>
+            <div>
+                <p>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                        Notificações  <span class="badge badge-light" th:text="${totNotificacao}"></span>
+                    </button>
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body" th:each="n : ${notif}">
+                        <p class="lead" th:text="${n.mensagem}"></p>
+                        <a style="color: red;" class="text-right" th:href="@{delete/{id}(id=${n.id})}"><i class="bi bi-trash"></i></a>
+                        <code><p style="color: gray;" th:text="${#temporals.format(n.data,'dd/MM/yyyy hh:mm a')}"></p></code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <table class="table table-hover container">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="t : ${tecs}">
+                <th scope="row"  th:text="${t.id}"></th>
+                <td th:text="${t.nome}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+</html>
